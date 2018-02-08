@@ -2,11 +2,13 @@ import * as React from 'react';
 import './App.css';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer } from './rootReducer';
+import { enhancer as demutxEnhancer } from 'demutx';
+import ActivityList from './ActivityList'
 const logo = require('./logo.svg');
 
-const store = createStore(reducer, devToolsEnhancer({}));
+const store = createStore(reducer, composeWithDevTools({})(demutxEnhancer));
 
 class App extends React.Component {
   render() {
@@ -20,10 +22,11 @@ class App extends React.Component {
           <p className="App-intro">
             How was your day?
           </p>
+          <ActivityList />
         </div>
       </Provider>
     );
   }
-}
+} 
 
 export default App;
